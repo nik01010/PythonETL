@@ -1,0 +1,2 @@
+pandas==2.2.3
+pyBuildReleaseTest==0.1.0

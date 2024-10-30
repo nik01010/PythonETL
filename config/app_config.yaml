@@ -1,0 +1,7 @@
+[logger]
+log_file_path: test_log.log
+
+[connection]
+  server: localhost
+  database: AdventureWorks2022
+  driver: ODBC+Driver+17+for+SQL+Server
