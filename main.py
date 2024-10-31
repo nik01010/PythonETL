@@ -11,28 +11,26 @@ from logging import Logger
 from pandas import DataFrame
 
 
-# Configuration -------------------------------------------------------------------
-app_config_filepath: str = "./config/app_config.yaml"
-app_config: ConfigParser = ConfigParser()
-app_config.read(app_config_filepath)
-
-log_file_path: str = app_config.get("logger", "log_file_path")
-logger: Logger = initialise_logger(file_path = log_file_path)
-
-connection_details: ConnectionDetails = ConnectionDetails(
-    server = app_config.get("connection", "server"),
-    database = app_config.get("connection", "database"),
-    driver = app_config.get("connection", "driver")
-)
-connection_string: str = connection_details.get_connection_string()
-
-
-# Main process --------------------------------------------------------------------
 def main():
+    # Configuration ---------------------------------------------------------------
+    app_config_filepath: str = "./config/app_config.yaml"
+    app_config: ConfigParser = ConfigParser()
+    app_config.read(app_config_filepath)
+
+    log_file_path: str = app_config.get("logger", "log_file_path")
+    logger: Logger = initialise_logger(file_path = log_file_path)
+
     logger.info("Starting ETL Process")
 
     # Connect ---------------------------------------------------------------------
     logger.info("Connecting to Database")
+    connection_details: ConnectionDetails = ConnectionDetails(
+        server = app_config.get("connection", "server"),
+        database = app_config.get("connection", "database"),
+        driver = app_config.get("connection", "driver")
+    )
+    connection_string: str = connection_details.get_connection_string()
+
     database_context: ApplicationDbContext = ApplicationDbContext(connection_string = connection_string)
 
     person_service: PersonService = PersonService(database_context = database_context)
