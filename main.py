@@ -22,6 +22,7 @@ def main():
 
     logger.info("Starting ETL Process")
 
+
     # Connect ---------------------------------------------------------------------
     logger.info("Connecting to Database")
     connection_details: ConnectionDetails = ConnectionDetails(
